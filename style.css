@@ -1,0 +1,209 @@
+/* Grundlegendes Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: Inter, sans-serif;
+  background-color: #e4004c;
+  overflow-x: hidden;
+}
+
+/* Canvas und Positionierung */
+#canvas-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh; /* moderne Browser nehmen diesen Wert */
+}
+
+canvas#bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #9f132a;
+  opacity: 0;
+  transition: opacity 1s ease;
+  z-index: 0;
+}
+
+/* Hauptinhalt zentriert über Canvas */
+main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+main * {
+  pointer-events: auto;
+}
+
+h2{
+    font-size: clamp(16px, 2vw, 20px);
+  font-weight: 700;
+  padding-bottom: 1rem;
+}
+
+p {
+  padding-bottom: 2rem;
+}
+
+/* Logo oben */
+.top-logo {
+  position: absolute;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+.top-logo img.logo {
+  width: 90vw;
+  max-width: 400px;
+  height: auto;
+}
+
+/* Claim unten links */
+.img-claim {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  width: 90vw;
+  max-width: 500px;
+  max-height: 25vh;
+  height: auto;
+  object-fit: contain;
+  z-index: 10;
+}
+
+/* Button in der Mitte */
+.center-button {
+  position: absolute;
+  right:2rem;
+  bottom:2rem;
+  width: 3rem;
+  height: 3rem;
+/*  padding: 1rem 1.35rem;*/
+  font-size: 1.25rem;
+  border-radius: 9999px;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  z-index: 10;
+  cursor: pointer;
+  box-shadow: 2px 5px 20px #00000038;
+
+}
+.center-button:hover {
+  background-color: rgba(40, 0, 0, 0.5);
+}
+
+/* Overlay mit Blur und Responsive */
+.info-overlay {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  max-width: 800px;
+  width: calc(100vw - 4rem);
+/*  background: rgba(246, 246, 246, 0.95);
+  backdrop-filter: blur(12px);*/
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  z-index: 30;
+/*  padding: 1.5rem;*/
+  animation: fadeIn 0.3s ease-out;
+}
+.info-overlay.hidden {
+  display: none;
+}
+.info-content {
+  background: white;
+  max-width: 800px;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+  color: #222;
+  position: relative;
+  font-size: clamp(16px, 2vw, 20px);
+}
+
+.imprint {
+  color:#CECECE;
+}
+
+.links{
+  padding-bottom: 1rem;
+  color:grey;
+}
+
+/* X Button */
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: black;
+  cursor: pointer;
+}
+
+/* Tags */
+.tags {
+  margin-top: 2rem;
+  font-weight: 600;
+}
+.btn {
+  display: inline-block;
+  margin: 0 0.5rem 0.5rem 0;
+  padding: .5rem 1.5rem;
+  border: 2px solid black;
+  border-radius: 9999px;
+  background: none;
+  color: black;
+  text-decoration: none;
+  font-size: clamp(16px, 2vw, 20px);
+}
+
+.btn:hover {
+    color: #fff;
+    background-color:#6c1b2d;;
+}
+
+/* Visually hidden */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .top-logo img.logo {
+    width: 80vw;
+    max-width: 300px;
+  }
+
+  .img-claim {
+    width: 65vw;
+    max-height: 20vh;
+  }
+
+  .center-button {
+    font-size: 1rem;
+/*    padding: 0.75rem 1.5rem;*/
+  }
+}
