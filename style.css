@@ -1,0 +1,344 @@
+/* Grundlegendes Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('/fonts/NotoSans-Black.woff2') format('woff2'),
+        url('/fonts/NotoSans-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('/fonts/NotoSans-Medium.woff2') format('woff2'),
+        url('/fonts/NotoSans-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('/fonts/NotoSans-Bold.woff2') format('woff2'),
+        url('/fonts/NotoSans-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('/fonts/NotoSans-MediumItalic.woff2') format('woff2'),
+        url('/fonts/NotoSans-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: Noto Sans, Inter, sans-serif;
+  background-color: #e4004c;
+  overflow-x: hidden;
+}
+
+/* Canvas und Positionierung */
+#canvas-section {
+  position: relative;
+  width: 100%;
+
+  height: 100vh;
+  height: 100dvh;
+  transition: width 0.4s ease;
+}
+
+canvas#bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #9f132a;
+  opacity: 0;
+  transition: opacity 1s ease;
+  z-index: 0;
+}
+
+main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: width 0.4s ease;
+}
+main * {
+  pointer-events: auto;
+}
+
+h1{
+    font-size: clamp(24px, 2vw, 48px);
+  font-weight: 700;
+  line-height: 1.2;
+  padding-bottom: 1rem;
+}
+
+
+h2 {
+  font-size: clamp(16px, 1vw, 24px);
+  font-weight: 700;
+  padding-bottom: 1rem;
+}
+
+p {
+  font-size: clamp(16px, 1vw, 24px);
+  padding-bottom: 1rem;
+}
+
+.top-logo {
+  position: absolute;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.top-logo img.logo {
+  width: 90vw;
+  max-width: 400px;
+  height: auto;
+}
+
+.img-claim {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  width: 90vw;
+  max-width: 500px;
+  max-height: 25vh;
+  height: auto;
+  object-fit: contain;
+  z-index: 10;
+}
+
+.center-button {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.25rem;
+  border-radius: 9999px;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  z-index: 10;
+  cursor: pointer;
+  box-shadow: 2px 5px 20px #00000038;
+}
+.center-button:hover {
+  background-color: rgba(40, 0, 0, 0.5);
+}
+
+/* Sidebar (statt Overlay) */
+#sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 30vw;
+height: 100vh;
+height: 100dvh;
+min-width: 400px;
+  background: white;
+  color: #111;
+  z-index: 100;
+  padding: 3rem;
+  overflow-y: auto;
+  box-shadow: inset 12px 0 12px -6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.6s ease;
+  transform: translateX(100%);
+}
+
+
+
+#sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+}
+
+body.sidebar-open main {
+  width: calc(100vw - var(--sidebar-width, 0px));
+}
+
+
+.sidebar-buttons a {
+  margin-top: 1rem;
+  text-decoration: none;
+    display: inline-block;
+  margin: 0 0.5rem 0.5rem 0;
+  padding: .5rem 1.5rem;
+  border: 2px solid black;
+  border-radius: 9999px;
+  background: none;
+  color: black;
+  text-decoration: none;
+  font-size: clamp(16px, 2vw, 20px);
+}
+
+.sidebar-buttons a:hover {
+    color: #fff;
+    background-color:#6c1b2d;;
+}
+
+.claim {
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.logo-caption {
+  margin-top: 3rem;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  align-items: center;
+  padding-bottom: 2rem;
+}
+
+.logo-grid img {
+    max-height: 110px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.imprint {
+  color:#CECECE;
+    font-size: 0.75rem; 
+}
+
+
+/* Schließen-Button */
+.close-button {
+  position: absolute;
+  top: 0rem;
+  right: 1rem;
+  font-size: 3rem;
+  background: none;
+  border: none;
+  color: black;
+  cursor: pointer;
+  z-index: 999;
+}
+
+/* Visually hidden */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+
+
+.legal-page {
+  position: relative;
+  max-width: 800px;
+  margin: 12rem auto;
+  padding: 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #111;
+  background-color: white;
+  z-index:50;
+
+}
+.legal-page h1 {
+  margin-bottom: 1rem;
+}
+.legal-page a.btn {
+  display: inline-block;
+  margin-bottom: 2rem;
+  text-decoration: none;
+  padding: .5rem 1.5rem;
+  border: 2px solid black;
+  border-radius: 9999px;
+  background: none;
+  color: black;
+}
+.legal-page a.btn:hover {
+  background-color: #6c1b2d;
+  color: white;
+}
+
+.legal-page a, a:visited {
+  color:black;
+}
+
+
+@media (max-width: 480px) {
+  .logo-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
+
+@media (max-width: 1730px) {
+  #sidebar {
+    width: 35vw;
+    max-width: none;
+      }
+
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    width: 100vw;
+    max-width: none;
+  }
+}
+
+@media (max-width: 600px) {
+  p{
+      padding-bottom: 1rem;
+  }
+  .top-logo img.logo {
+    width: 80vw;
+    max-width: 300px;
+  }
+
+  .img-claim {
+    width: 65vw;
+    max-height: 20vh;
+  }
+
+  .center-button {
+    font-size: 1rem;
+  }
+}
