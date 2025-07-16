@@ -1,30 +1,26 @@
-// src/pathseg.js
-// Polyfill für SVGPathSeg – benötigt von Matter.Svg.pathToVertices()
+// Minimaler Polyfill für pathSegList, nur wenn nicht vorhanden
 
-if (!("SVGPathSegList" in window)) {
-  (function () {
-    const NS = "http://www.w3.org/2000/svg";
+if (
+  typeof SVGPathElement !== 'undefined' &&
+  !('pathSegList' in SVGPathElement.prototype)
+) {
+  Object.defineProperty(SVGPathElement.prototype, 'pathSegList', {
+    get: function () {
+      const length = this.getTotalLength();
+      const samples = Math.ceil(length / 4);
+      const list = [];
 
-    const tempPath = document.createElementNS(NS, "path");
-
-    Object.defineProperty(SVGPathElement.prototype, "pathSegList", {
-      get: function () {
-        const list = [];
-        const length = this.getTotalLength();
-        const samples = Math.ceil(length / 4); // feinere Auflösung
-
-        for (let i = 0; i <= samples; i++) {
-          const p = this.getPointAtLength((i / samples) * length);
-          list.push({ x: p.x, y: p.y });
-        }
-
-        return {
-          numberOfItems: list.length,
-          getItem: function (i) {
-            return list[i];
-          }
-        };
+      for (let i = 0; i <= samples; i++) {
+        const pt = this.getPointAtLength((i / samples) * length);
+        list.push({ x: pt.x, y: pt.y });
       }
-    });
-  })();
+
+      return {
+        numberOfItems: list.length,
+        getItem: function (i) {
+          return list[i];
+        }
+      };
+    }
+  });
 }
